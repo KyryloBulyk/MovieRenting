@@ -1,0 +1,20 @@
+{
+	"logoName": "Rent-a-Movie",
+	"drawerLogoName": "Your movie list",
+	"searchBar": {
+		"placeholder": "Search Movies",
+		"select": {
+			"title": "Sort by",
+			"popularity": "Popularity",
+			"upcoming": "Upcoming",
+			"rating": "Rating"
+		}
+	},
+	"modal": {
+		"releaseDate": "Release date: "
+	},
+	"snackbar": {
+		"added": "Added to your list",
+		"alreadyAdded": "You already have this movie in your list"
+	}
+}

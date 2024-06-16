@@ -1,0 +1,20 @@
+{
+	"logoName": "Пошук Фільмів",
+	"drawerLogoName": "Твій список фільмів",
+	"searchBar": {
+		"placeholder": "Шукати фільми",
+		"select": {
+			"title": "Сортувати за",
+			"popularity": "Популярність",
+			"upcoming": "Майбутні",
+			"rating": "Рейтинг"
+		}
+	},
+	"modal": {
+		"releaseDate": "Дата випуску: "
+	},
+	"snackbar": {
+		"added": "Додано до вашого списку",
+		"alreadyAdded": "Ви вже додали цей фільм до вашого списку"
+	}
+}

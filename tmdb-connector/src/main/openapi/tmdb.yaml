@@ -1,0 +1,819 @@
+openapi: 3.0.0
+info:
+  title: TMDB API
+  version: '3'
+servers:
+  - url: https://api.themoviedb.org
+components:
+  securitySchemes:
+    bearerauth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      in: header
+security:
+  - bearerauth: []
+paths:
+  /3/search/movie:
+    get:
+      summary: Movie
+      description: Search for movies by their original, translated and alternative titles.
+      operationId: search-movie
+      parameters:
+        - name: query
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: include_adult
+          in: query
+          schema:
+            type: boolean
+            default: false
+        - name: language
+          in: query
+          schema:
+            type: string
+            default: en-US
+        - name: primary_release_year
+          in: query
+          schema:
+            type: string
+        - name: page
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 1
+        - name: region
+          in: query
+          schema:
+            type: string
+        - name: year
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{"page":1,"results":[{"adult":false,"backdrop_path":"/hZkgoQYus5vegHoetLkCJzb17zJ.jpg","genre_ids":[18,53,35],"id":550,"original_language":"en","original_title":"Fight Club","overview":"A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground \"fight clubs\" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.","popularity":73.433,"poster_path":"/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg","release_date":"1999-10-15","title":"Fight Club","video":false,"vote_average":8.433,"vote_count":26279},{"adult":false,"backdrop_path":"/1VqE5z4VIOcNcajJuHLk4fDkY9G.jpg","genre_ids":[28,27],"id":289732,"original_language":"zh","original_title":"屍城","overview":"It''s the end of the century at a corner of the city in a building riddled with crime - Everyone in the building has turned into zombies. After Jenny''s boyfriend is killed in a zombie attack, she faces the challenge of surviving in the face of adversity. In order to stay alive, she struggles with Andy to flee danger.","popularity":15.263,"poster_path":"/u8u3KVq0qfJYmNDsaTVOXy4So6f.jpg","release_date":"2014-10-23","title":"Zombie Fight Club","video":false,"vote_average":4.721,"vote_count":52},{"adult":false,"backdrop_path":null,"genre_ids":[35,18],"id":323667,"original_language":"ru","original_title":"Вставай и бейся","overview":"Intertwined stories from the gladiator/athletes participating to the Calcio Storico Fiorentino yearly championship.","popularity":2.744,"poster_path":"/rPCOC0myV3Vr7nYGMAOAOpUXgH3.jpg","release_date":"2015-06-21","title":"Florence Fight Club","video":false,"vote_average":5.722,"vote_count":9},{"adult":false,"backdrop_path":null,"genre_ids":[],"id":973534,"original_language":"ru","original_title":"Бойцовский клуб (русская версия)","overview":"The Russian version of the movie \"Fight Club\" is not just a Russian version of a well-known cult film, it is the result and of the hard work of two young men and their love for cinema, Alexander Kukhar (GOLOBON-TV) and Dmitry Ivanov (GRIZLIK FILM) , who are responsible for this project, from the development of its idea and the selection of the cast, to the organization of filming and financial support.  Filming lasted a whole year. Everyday work, constant trips, searching for suitable film sets and an exhausting schedule - all this was not in vain and resulted in an unusually amazing and original project - the film \"Fight Club\", created in the very heart of southern Russia, in the city of Krasnodar, by two young people","popularity":0.874,"poster_path":null,"release_date":"","title":"Fight Club (Russian version)","video":false,"vote_average":7.4,"vote_count":6},{"adult":false,"backdrop_path":null,"genre_ids":[],"id":883656,"original_language":"en","original_title":"GCW Fight Club","overview":"GCW presents Fight Club straight from the Showboat Hotel in Atlantic City, NJ! The event features the GCW World Championship match where Mox defends against Gage in a match that we have been waiting for during the last decade. Who will be the new GCW World Champion?","popularity":1.953,"poster_path":"/a9RWdhRLyx3BqCjlwmZJHXyeMkR.jpg","release_date":"2021-10-09","title":"GCW Fight Club","video":true,"vote_average":6.5,"vote_count":5},{"adult":false,"backdrop_path":null,"genre_ids":[28],"id":347807,"original_language":"hi","original_title":"Fight Club: Members Only","overview":"Four friends head off to Bombay and get involved in the mother and father of all gang wars.","popularity":2.26,"poster_path":"/aXFmWfWYCCxQTkCn7K86RvDiMHZ.jpg","release_date":"2006-02-17","title":"Fight Club: Members Only","video":false,"vote_average":4.5,"vote_count":12},{"adult":false,"backdrop_path":null,"genre_ids":[99],"id":259016,"original_language":"en","original_title":"Insane Fight Club","overview":"A group of friends have created a brand new subculture that is taking over the streets of Glasgow. They''ve established their very own fight club, but this is no ordinary wrestling event - this is brutal, riotous chaos. Fights don''t always stay inside the ring, people are bounced off the side of buses and thrown off balconies in pubs. They now plan the biggest show of their lives. The stakes are high, will it bring them the fame and recognition they need to survive?","popularity":1.614,"poster_path":null,"release_date":"2014-03-11","title":"Insane Fight Club","video":false,"vote_average":4.333,"vote_count":3},{"adult":false,"backdrop_path":null,"genre_ids":[28,18,80],"id":51021,"original_language":"en","original_title":"Lure: Teen Fight Club","overview":"A community is under siege as three Belmont Highschool coed students go missing with no trace of their whereabouts. The pressure is on the police to capture the culprits responsible. Scouring the school hallways in search of clues, undercover female detective Maggie Rawdon (Jessica Sonnerborn) enters Belmont High as a transfer student in an attempt to solve the hideous disappearance of the students. Maggie makes a few new friends, and gets invited to a private rave in the country. Just as the group begins to suspect that they''ve taken a wrong turn, however, the trap is sprung and Maggie finds out firsthand what fate has befallen the missing girls.","popularity":0.983,"poster_path":"/ipl6NdM0LwyakzLH9gKBDn8YhmZ.jpg","release_date":"2010-11-16","title":"Lure: Teen Fight Club","video":false,"vote_average":5.556,"vote_count":9},{"adult":false,"backdrop_path":null,"genre_ids":[28,99,12],"id":104782,"original_language":"it","original_title":"Florence Fight Club","overview":"Four men decided to enter in the oldest Fight Club of the History, The Florentine Football tournament. A father and son, a black guy, an old champion and outsider clerk will enter in an arena of the time to win their fears, to go over their limits, to be heroes for a day.","popularity":0.6,"poster_path":null,"release_date":"2010-01-01","title":"Florence Fight Club","video":false,"vote_average":7.0,"vote_count":1},{"adult":false,"backdrop_path":null,"genre_ids":[99],"id":532155,"original_language":"en","original_title":"Musangwe: Fight Club","overview":"The first rule is that there are no rules. For the bare-knuckle combatants competing in Musangwe fights, anything goes - you can even put a curse on him. The sport, which dates back centuries, has become a South African institution. Any male from the age of nine to ninety can compete. We follow a group of fighters as they slug it out in the ring. Who will be this year''s champion?","popularity":0.6,"poster_path":"/tZDxttt0LfgAKwvLIWyOO3fr01c.jpg","release_date":"2007-10-01","title":"Musangwe: Fight Club","video":false,"vote_average":6.25,"vote_count":4},{"adult":false,"backdrop_path":null,"genre_ids":[],"id":289100,"original_language":"en","original_title":"Girls Fight Club","overview":"The best women''s wrestling competition of all time...and if you think it''s fake you''re in for a big surprise See LEGENDARY Mixed Martial Arts fighters coach their teams to victory in the cage! aka Chuck Lidell''s Girl''s Fight Club","popularity":0.6,"poster_path":null,"release_date":"2009-06-18","title":"Girls Fight Club","video":false,"vote_average":5.25,"vote_count":2},{"adult":false,"backdrop_path":"/lBENxZ1nmHXkTKV0AJu1agnW8Mg.jpg","genre_ids":[],"id":877672,"original_language":"en","original_title":"Superhero Fight Club","overview":"Oliver introduces Barry to his own little fight club which features such members as Roy Harper, Laurel Lance, Malcolm Merlyn and Ra''s Al Ghul.","popularity":0.6,"poster_path":"/riAUCTb0NBakJxlBMB801gQlF1j.jpg","release_date":"2015-04-13","title":"Superhero Fight Club","video":false,"vote_average":6.375,"vote_count":9},{"adult":false,"backdrop_path":"/z8MzErK9gYLHgvqYKMapqk7rqyZ.jpg","genre_ids":[],"id":877673,"original_language":"en","original_title":"Superhero Fight Club 2.0","overview":"Barry and Oliver introduce Supergirl to the new fight club, Felicity and Cisco applying additional features to the fight in which The Flash, Green Arrow, Supergirl, White Canary, Firestorm and Atom need to fight to stay alive.","popularity":0.632,"poster_path":"/edt0iegDlAqPddRunIixcpNsja4.jpg","release_date":"2016-09-29","title":"Superhero Fight Club 2.0","video":false,"vote_average":6.5,"vote_count":6},{"adult":false,"backdrop_path":null,"genre_ids":[16,35],"id":615408,"original_language":"en","original_title":"Fight Club But With Tennis And No Fight","overview":"Drama descends upon two tennis-obsessed women as the tension moves from off the court and into the café.","popularity":0.6,"poster_path":"/8pEQqVtSpgCtb7dzhR55EO1dC3l.jpg","release_date":"2019-07-13","title":"Fight Club But With Tennis And No Fight","video":false,"vote_average":7.0,"vote_count":1},{"adult":false,"backdrop_path":null,"genre_ids":[],"id":969532,"original_language":"en","original_title":"GCW: Fight Club Houston","overview":"On July 9th GCW presents Fight Club Houston straight from Premier Arena in Houston, Texas. The lineup is almost completed, check it below:  AJ Gray vs Bryan Keith  Nick Gage vs Sadika  Joey Janela vs Dante  Ninja Mack vs Jack Cartwheel  Effy vs Gino  Jimmy Lloyd vs Carter  Lucha Scramble  .... more to be added soon!","popularity":0.6,"poster_path":"/353CATo61TQERENVF6AqIqhUD51.jpg","release_date":"2021-07-09","title":"GCW: Fight Club Houston","video":true,"vote_average":5.0,"vote_count":1},{"adult":false,"backdrop_path":null,"genre_ids":[],"id":944789,"original_language":"en","original_title":"Leopard Fight Club","overview":"Witness a remarkable coming-of-age story as we track a young leopard''s journey from rookie to royalty in South Africa''s lethal Big Five landscape. When we first meet Jack, he''s clumsy, fearful, and weak, but he''s a fast learner - and he''ll need to be. He''s destined for a showdown with the area''s current leopard monarch, an alpha male with a real mean streak. We follow Jack as he hones his skills and builds up muscle for the ultimate catfight. It''s a battle where only the winner will walk out alive.","popularity":0.6,"poster_path":"/pNhu0kvxvBJhpzDEwKf9Zdphbfg.jpg","release_date":"","title":"Leopard Fight Club","video":false,"vote_average":6.0,"vote_count":1},{"adult":false,"backdrop_path":null,"genre_ids":[99],"id":151912,"original_language":"en","original_title":"Jurassic Fight Club","overview":"Jurassic Fight Club, a paleontology-based miniseries that ran for 12 episodes, depicts how prehistoric beasts hunted their prey, dissecting these battles and uncovering a predatory world far more calculated and complex than originally thought. It was hosted by George Blasing, a self-taught paleontologist.","popularity":0.742,"poster_path":null,"release_date":"2008-10-22","title":"Jurassic Fight Club","video":false,"vote_average":7.4,"vote_count":5},{"adult":false,"backdrop_path":null,"genre_ids":[99],"id":322772,"original_language":"en","original_title":"Insane Fight Club II - This Time It’s Personal","overview":"Insane Fight Club is back. This year the boys are taking their unique form of entertainment to England as they stage fight nights in Birmingham, Leeds, Liverpool and Newcastle.","popularity":2.348,"poster_path":null,"release_date":"2015-01-21","title":"Insane Fight Club II - This Time It’s Personal","video":false,"vote_average":7.0,"vote_count":2},{"adult":false,"backdrop_path":null,"genre_ids":[],"id":818666,"original_language":"en","original_title":"Triller Fight Club: Jake Paul vs Ben Askren","overview":"Jake Paul vs. Ben Askren is an professional boxing match between YouTuber Jake Paul and former MMA fighter Ben Askren.  The bout took take place on April 17, 2021, at the Mercedes-Benz Stadium in Atlanta, Georgia.","popularity":1.467,"poster_path":"/pFxHnZhetfHpXlcYTNTFZFt6pBq.jpg","release_date":"2021-04-17","title":"Triller Fight Club: Jake Paul vs Ben Askren","video":true,"vote_average":5.0,"vote_count":3},{"adult":false,"backdrop_path":null,"genre_ids":[],"id":935845,"original_language":"en","original_title":"GCW: Fight Club 2 Houston","overview":"Are you ready for the GCW: Fight Club 2?  On February 4th GCW: Fight Club 2 is live on FITE straight from Houston Premier Arena, TX!  Check the full lineup below:  4-way match  Mascara Dorada vs Gringo Loco vs Blake Christian vs ASF  Atticus Cogar vs Gino Medina  All-Star Scramble  Matthew Justice vs Allie Katch vs Grim Reefer vs Jimmy Lloyd vs Jordan Oliver vs Chris Carter  GCW Extreme Championship  AJ Gray vs Mysterious Q  Bryan Keith vs Effy  Ninja Mack vs Nick Wayne  Loko Wrestling Championship  Dante Leon vs Sam Stackhouse  Matt Tremont vs Sadika  *lineup subject to change","popularity":0.6,"poster_path":"/bPPvoNxWcoqSvw0SnigOZpcxKmN.jpg","release_date":"2022-02-04","title":"GCW: Fight Club 2 Houston","video":true,"vote_average":8.0,"vote_count":1}],"total_pages":2,"total_results":39}'
+              schema:
+                type: object
+                properties:
+                  page:
+                    type: integer
+                    example: 1
+                    default: 0
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        adult:
+                          type: boolean
+                          example: false
+                          default: true
+                        backdrop_path:
+                          type: string
+                          example: /hZkgoQYus5vegHoetLkCJzb17zJ.jpg
+                        genre_ids:
+                          type: array
+                          items:
+                            type: integer
+                            example: 18
+                            default: 0
+                        id:
+                          type: integer
+                          example: 550
+                          default: 0
+                        original_language:
+                          type: string
+                          example: en
+                        original_title:
+                          type: string
+                          example: Fight Club
+                        overview:
+                          type: string
+                          example: A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground "fight clubs" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.
+                        popularity:
+                          type: number
+                          example: 73.433
+                          default: 0
+                        poster_path:
+                          type: string
+                          example: /pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg
+                        release_date:
+                          type: string
+                          example: '1999-10-15'
+                        title:
+                          type: string
+                          example: Fight Club
+                        video:
+                          type: boolean
+                          example: false
+                          default: true
+                        vote_average:
+                          type: number
+                          example: 8.433
+                          default: 0
+                        vote_count:
+                          type: integer
+                          example: 26279
+                          default: 0
+                  total_pages:
+                    type: integer
+                    example: 2
+                    default: 0
+                  total_results:
+                    type: integer
+                    example: 39
+                    default: 0
+      deprecated: false
+  /3/discover/movie:
+    get:
+      summary: Movie
+      description: Find movies using over 30 filters and sort options.
+      operationId: discover-movie
+      parameters:
+        - name: certification
+          in: query
+          description: use in conjunction with `region`
+          schema:
+            type: string
+        - name: certification.gte
+          in: query
+          description: use in conjunction with `region`
+          schema:
+            type: string
+        - name: certification.lte
+          in: query
+          description: use in conjunction with `region`
+          schema:
+            type: string
+        - name: certification_country
+          in: query
+          description: use in conjunction with the `certification`, `certification.gte` and `certification.lte` filters
+          schema:
+            type: string
+        - name: include_adult
+          in: query
+          schema:
+            type: boolean
+            default: false
+        - name: include_video
+          in: query
+          schema:
+            type: boolean
+            default: false
+        - name: language
+          in: query
+          schema:
+            type: string
+            default: en-US
+        - name: page
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 1
+        - name: primary_release_year
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: primary_release_date.gte
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: primary_release_date.lte
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: region
+          in: query
+          schema:
+            type: string
+        - name: release_date.gte
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: release_date.lte
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: sort_by
+          in: query
+          schema:
+            type: string
+            enum:
+              - original_title.asc
+              - original_title.desc
+              - popularity.asc
+              - popularity.desc
+              - revenue.asc
+              - revenue.desc
+              - primary_release_date.asc
+              - title.asc
+              - title.desc
+              - primary_release_date.desc
+              - vote_average.asc
+              - vote_average.desc
+              - vote_count.asc
+              - vote_count.desc
+            default: popularity.desc
+        - name: vote_average.gte
+          in: query
+          schema:
+            type: number
+            format: float
+        - name: vote_average.lte
+          in: query
+          schema:
+            type: number
+            format: float
+        - name: vote_count.gte
+          in: query
+          schema:
+            type: number
+            format: float
+        - name: vote_count.lte
+          in: query
+          schema:
+            type: number
+            format: float
+        - name: watch_region
+          in: query
+          description: use in conjunction with `with_watch_monetization_types ` or `with_watch_providers `
+          schema:
+            type: string
+        - name: with_cast
+          in: query
+          description: can be a comma (`AND`) or pipe (`OR`) separated query
+          schema:
+            type: string
+        - name: with_companies
+          in: query
+          description: can be a comma (`AND`) or pipe (`OR`) separated query
+          schema:
+            type: string
+        - name: with_crew
+          in: query
+          description: can be a comma (`AND`) or pipe (`OR`) separated query
+          schema:
+            type: string
+        - name: with_genres
+          in: query
+          description: can be a comma (`AND`) or pipe (`OR`) separated query
+          schema:
+            type: string
+        - name: with_keywords
+          in: query
+          description: can be a comma (`AND`) or pipe (`OR`) separated query
+          schema:
+            type: string
+        - name: with_origin_country
+          in: query
+          schema:
+            type: string
+        - name: with_original_language
+          in: query
+          schema:
+            type: string
+        - name: with_people
+          in: query
+          description: can be a comma (`AND`) or pipe (`OR`) separated query
+          schema:
+            type: string
+        - name: with_release_type
+          in: query
+          description: 'possible values are: [1, 2, 3, 4, 5, 6] can be a comma (`AND`) or pipe (`OR`) separated query, can be used in conjunction with `region`'
+          schema:
+            type: integer
+            format: int32
+        - name: with_runtime.gte
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: with_runtime.lte
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: with_watch_monetization_types
+          in: query
+          description: 'possible values are: [flatrate, free, ads, rent, buy] use in conjunction with `watch_region`, can be a comma (`AND`) or pipe (`OR`) separated query'
+          schema:
+            type: string
+        - name: with_watch_providers
+          in: query
+          description: use in conjunction with `watch_region`, can be a comma (`AND`) or pipe (`OR`) separated query
+          schema:
+            type: string
+        - name: without_companies
+          in: query
+          schema:
+            type: string
+        - name: without_genres
+          in: query
+          schema:
+            type: string
+        - name: without_keywords
+          in: query
+          schema:
+            type: string
+        - name: without_watch_providers
+          in: query
+          schema:
+            type: string
+        - name: year
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{"page":1,"results":[{"adult":false,"backdrop_path":"/8YFL5QQVPy3AgrEQxNYVSgiPEbe.jpg","genre_ids":[28,12,878],"id":640146,"original_language":"en","original_title":"Ant-Man and the Wasp: Quantumania","overview":"Super-Hero partners Scott Lang and Hope van Dyne, along with with Hope''s parents Janet van Dyne and Hank Pym, and Scott''s daughter Cassie Lang, find themselves exploring the Quantum Realm, interacting with strange new creatures and embarking on an adventure that will push them beyond the limits of what they thought possible.","popularity":9272.643,"poster_path":"/ngl2FKBlU4fhbdsrtdom9LVLBXw.jpg","release_date":"2023-02-15","title":"Ant-Man and the Wasp: Quantumania","video":false,"vote_average":6.5,"vote_count":1856},{"adult":false,"backdrop_path":"/iJQIbOPm81fPEGKt5BPuZmfnA54.jpg","genre_ids":[16,12,10751,14,35],"id":502356,"original_language":"en","original_title":"The Super Mario Bros. Movie","overview":"While working underground to fix a water main, Brooklyn plumbers—and brothers—Mario and Luigi are transported down a mysterious pipe and wander into a magical new world. But when the brothers are separated, Mario embarks on an epic quest to find Luigi.","popularity":7212.464,"poster_path":"/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg","release_date":"2023-04-05","title":"The Super Mario Bros. Movie","video":false,"vote_average":7.5,"vote_count":1435},{"adult":false,"backdrop_path":"/nDxJJyA5giRhXx96q1sWbOUjMBI.jpg","genre_ids":[28,35,14],"id":594767,"original_language":"en","original_title":"Shazam! Fury of the Gods","overview":"Billy Batson and his foster siblings, who transform into superheroes by saying \"Shazam!\", are forced to get back into action and fight the Daughters of Atlas, who they must stop from using a weapon that could destroy the world.","popularity":4319.273,"poster_path":"/2VK4d3mqqTc7LVZLnLPeRiPaJ71.jpg","release_date":"2023-03-15","title":"Shazam! Fury of the Gods","video":false,"vote_average":6.8,"vote_count":1203},{"adult":false,"backdrop_path":"/ovM06PdF3M8wvKb06i4sjW3xoww.jpg","genre_ids":[878,12,28],"id":76600,"original_language":"en","original_title":"Avatar: The Way of Water","overview":"Set more than a decade after the events of the first film, learn the story of the Sully family (Jake, Neytiri, and their kids), the trouble that follows them, the lengths they go to keep each other safe, the battles they fight to stay alive, and the tragedies they endure.","popularity":3471.132,"poster_path":"/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg","release_date":"2022-12-14","title":"Avatar: The Way of Water","video":false,"vote_average":7.7,"vote_count":7519},{"adult":false,"backdrop_path":"/xwA90BwZXTh8ke3CVsQlj8EOkFr.jpg","genre_ids":[28,12,36,18,10752],"id":948713,"original_language":"en","original_title":"The Last Kingdom: Seven Kings Must Die","overview":"In the wake of King Edward''s death, Uhtred of Bebbanburg and his comrades adventure across a fractured kingdom in the hopes of uniting England at last.","popularity":3162.414,"poster_path":"/7yyFEsuaLGTPul5UkHc5BhXnQ0k.jpg","release_date":"2023-04-14","title":"The Last Kingdom: Seven Kings Must Die","video":false,"vote_average":7.4,"vote_count":226},{"adult":false,"backdrop_path":"/5i6SjyDbDWqyun8klUuCxrlFbyw.jpg","genre_ids":[18,28],"id":677179,"original_language":"en","original_title":"Creed III","overview":"After dominating the boxing world, Adonis Creed has been thriving in both his career and family life. When a childhood friend and former boxing prodigy, Damian Anderson, resurfaces after serving a long sentence in prison, he is eager to prove that he deserves his shot in the ring. The face-off between former friends is more than just a fight. To settle the score, Adonis must put his future on the line to battle Damian — a fighter who has nothing to lose.","popularity":2865.256,"poster_path":"/cvsXj3I9Q2iyyIo95AecSd1tad7.jpg","release_date":"2023-03-01","title":"Creed III","video":false,"vote_average":7.3,"vote_count":1183},{"adult":false,"backdrop_path":"/7bWxAsNPv9CXHOhZbJVlj2KxgfP.jpg","genre_ids":[27,53],"id":713704,"original_language":"en","original_title":"Evil Dead Rise","overview":"Two sisters find an ancient vinyl that gives birth to bloodthirsty demons that run amok in a Los Angeles apartment building and thrusts them into a primal battle for survival as they face the most nightmarish version of family imaginable.","popularity":1898.367,"poster_path":"/mIBCtPvKZQlxubxKMeViO2UrP3q.jpg","release_date":"2023-04-12","title":"Evil Dead Rise","video":false,"vote_average":6.9,"vote_count":192},{"adult":false,"backdrop_path":"/bT3IpP7OopgiVuy6HCPOWLuaFAd.jpg","genre_ids":[35,9648,28],"id":638974,"original_language":"en","original_title":"Murder Mystery 2","overview":"After starting their own detective agency, Nick and Audrey Spitz land a career-making case when their billionaire pal is kidnapped from his wedding.","popularity":1855.858,"poster_path":"/s1VzVhXlqsevi8zeCMG9A16nEUf.jpg","release_date":"2023-03-28","title":"Murder Mystery 2","video":false,"vote_average":6.6,"vote_count":856},{"adult":false,"backdrop_path":"/ouB7hwclG7QI3INoYJHaZL4vOaa.jpg","genre_ids":[16,10751,14,12,35,18],"id":315162,"original_language":"en","original_title":"Puss in Boots: The Last Wish","overview":"Puss in Boots discovers that his passion for adventure has taken its toll: He has burned through eight of his nine lives, leaving him with only one life left. Puss sets out on an epic journey to find the mythical Last Wish and restore his nine lives.","popularity":1407.152,"poster_path":"/kuf6dutpsT0vSVehic3EZIqkOBt.jpg","release_date":"2022-12-07","title":"Puss in Boots: The Last Wish","video":false,"vote_average":8.3,"vote_count":5326},{"adult":false,"backdrop_path":"/h8gHn0OzBoaefsYseUByqsmEDMY.jpg","genre_ids":[28,53,80],"id":603692,"original_language":"en","original_title":"John Wick: Chapter 4","overview":"With the price on his head ever increasing, John Wick uncovers a path to defeating The High Table. But before he can earn his freedom, Wick must face off against a new enemy with powerful alliances across the globe and forces that turn old friends into foes.","popularity":1312.743,"poster_path":"/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg","release_date":"2023-03-22","title":"John Wick: Chapter 4","video":false,"vote_average":8,"vote_count":1202},{"adult":false,"backdrop_path":"/nDmPjKLqLwWyd4Ssti8HCdhW5cZ.jpg","genre_ids":[28],"id":1048300,"original_language":"en","original_title":"Adrenaline","overview":"A female FBI agent holidaying in Eastern Europe with her family gets her life upside down when her daughter is kidnapped. She has to team up with a criminal on the run to save her daughter before time runs out.","popularity":1269.765,"poster_path":"/qVzRt8c2v4gGBYsnaflXVVeQ9Lh.jpg","release_date":"2022-12-15","title":"Adrenaline","video":false,"vote_average":4,"vote_count":4},{"adult":false,"backdrop_path":"/a2tys4sD7xzVaogPntGsT1ypVoT.jpg","genre_ids":[53,35,80],"id":804150,"original_language":"en","original_title":"Cocaine Bear","overview":"Inspired by a true story, an oddball group of cops, criminals, tourists and teens converge in a Georgia forest where a 500-pound black bear goes on a murderous rampage after unintentionally ingesting cocaine.","popularity":1223.954,"poster_path":"/gOnmaxHo0412UVr1QM5Nekv1xPi.jpg","release_date":"2023-02-22","title":"Cocaine Bear","video":false,"vote_average":6.4,"vote_count":873},{"adult":false,"backdrop_path":"/54IXMMEQKlkPXHqPExWy98UBmtE.jpg","genre_ids":[27],"id":1008005,"original_language":"es","original_title":"La niña de la comunión","overview":"Spain, late 1980s. Newcomer Sara tries to fit in with the other teens in this tight-knit small town in the province of Tarragona. If only she were more like her extroverted best friend, Rebe. They go out one night at a nightclub, on the way home, they come upon a little girl holding a doll, dressed for her first communion. And that''s when the nightmare begins.","popularity":1191.393,"poster_path":"/sP6AO11a7jWgsmT9T8j9EGIWAaZ.jpg","release_date":"2023-02-10","title":"The Communion Girl","video":false,"vote_average":6.3,"vote_count":55},{"adult":false,"backdrop_path":"/eSVu1FvGPy86TDo4hQbpuHx55DJ.jpg","genre_ids":[878,12,53,28],"id":700391,"original_language":"en","original_title":"65","overview":"65 million years ago, the only 2 survivors of a spaceship from Somaris that crash-landed on Earth must fend off dinosaurs and reach the escape vessel in time before an imminent asteroid strike threatens to destroy the planet.","popularity":1189.997,"poster_path":"/rzRb63TldOKdKydCvWJM8B6EkPM.jpg","release_date":"2023-03-02","title":"65","video":false,"vote_average":6.3,"vote_count":752},{"adult":false,"backdrop_path":"/tFaC1Fb1sv1dALB0i9Avi76MHmn.jpg","genre_ids":[10751,28,12],"id":946310,"original_language":"nl","original_title":"De Piraten van Hiernaast II: De Ninja''s van de Overkant","overview":"The pirates feel right at home in Sandborough, but the atmosphere cools right down when the ninjas come to live in the street. After all, pirates and ninjas are sworn enemies!  While pirate captain Hector Blunderbuss struggles to get rid of his new neighbours, son Billy and ninja daughter Yuka become friends. The pirates challenge the ninjas to the ultimate battle at the village''s annual hexathlon. Who will win the match? Ninjas are faster and more agile of course, but pirates are the best cheats in all of the seven seas...","popularity":1145.777,"poster_path":"/uDsvma9dAwnDPVuCFi99YpWvBk0.jpg","release_date":"2022-04-20","title":"Pirates Down the Street II: The Ninjas from Across","video":false,"vote_average":6.2,"vote_count":21},{"adult":false,"backdrop_path":"/rPSJAElGxOTko1zK6uIlYnTMFxN.jpg","genre_ids":[80],"id":1104040,"original_language":"en","original_title":"Gangs of Lagos","overview":"A group of friends who each have to navigate their own destiny, growing up on the bustling streets and neighborhood of Isale Eko, Lagos.","popularity":1133.317,"poster_path":"/nGwFsB6EXUCr21wzPgtP5juZPSv.jpg","release_date":"2023-04-07","title":"Gangs of Lagos","video":false,"vote_average":5.6,"vote_count":20},{"adult":false,"backdrop_path":"/5Y5pz0NX7SZS9036I733F7uNcwK.jpg","genre_ids":[27,53],"id":758323,"original_language":"en","original_title":"The Pope''s Exorcist","overview":"Father Gabriele Amorth, Chief Exorcist of the Vatican, investigates a young boy''s terrifying possession and ends up uncovering a centuries-old conspiracy the Vatican has desperately tried to keep hidden.","popularity":1103.242,"poster_path":"/9JBEPLTPSm0d1mbEcLxULjJq9Eh.jpg","release_date":"2023-04-05","title":"The Pope''s Exorcist","video":false,"vote_average":6.5,"vote_count":142},{"adult":false,"backdrop_path":"/m1fgGSLK0WvRpzM1AmZu38m0Tx8.jpg","genre_ids":[28],"id":842945,"original_language":"en","original_title":"Supercell","overview":"Good-hearted teenager William always lived in hope of following in his late father’s footsteps and becoming a storm chaser. His father’s legacy has now been turned into a storm-chasing tourist business, managed by the greedy and reckless Zane Rogers, who is now using William as the main attraction to lead a group of unsuspecting adventurers deep into the eye of the most dangerous supercell ever seen.","popularity":962.106,"poster_path":"/gbGHezV6yrhua0KfAgwrknSOiIY.jpg","release_date":"2023-03-17","title":"Supercell","video":false,"vote_average":6.4,"vote_count":122},{"adult":false,"backdrop_path":"/tYcmm8XtzRdcT6kliCbHuWwLCwB.jpg","genre_ids":[28,80,53],"id":849869,"original_language":"ko","original_title":"길복순","overview":"At work, she''s a renowned assassin. At home, she''s a single mom to a teenage daughter. Killing? That''s easy. It''s parenting that''s the hard part.","popularity":956.601,"poster_path":"/taYgn3RRpCGlTGdaGQvnSIOzXFy.jpg","release_date":"2023-02-17","title":"Kill Boksoon","video":false,"vote_average":6.8,"vote_count":184},{"adult":false,"backdrop_path":"/eNJhWy7xFzR74SYaSJHqJZuroDm.jpg","genre_ids":[28,878],"id":1033219,"original_language":"en","original_title":"Attack on Titan","overview":"As viable water is depleted on Earth, a mission is sent to Saturn''s moon Titan to retrieve sustainable H2O reserves from its alien inhabitants. But just as the humans acquire the precious resource, they are attacked by Titan rebels, who don''t trust that the Earthlings will leave in peace.","popularity":875.796,"poster_path":"/qNz4l8UgTkD8rlqiKZ556pCJ9iO.jpg","release_date":"2022-09-30","title":"Attack on Titan","video":false,"vote_average":6.1,"vote_count":104}],"total_pages":38020,"total_results":760385}'
+              schema:
+                type: object
+                properties:
+                  page:
+                    type: integer
+                    example: 1
+                    default: 0
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        adult:
+                          type: boolean
+                          example: false
+                          default: true
+                        backdrop_path:
+                          type: string
+                          example: /8YFL5QQVPy3AgrEQxNYVSgiPEbe.jpg
+                        genre_ids:
+                          type: array
+                          items:
+                            type: integer
+                            example: 28
+                            default: 0
+                        id:
+                          type: integer
+                          example: 640146
+                          default: 0
+                        original_language:
+                          type: string
+                          example: en
+                        original_title:
+                          type: string
+                          example: 'Ant-Man and the Wasp: Quantumania'
+                        overview:
+                          type: string
+                          example: Super-Hero partners Scott Lang and Hope van Dyne, along with with Hope's parents Janet van Dyne and Hank Pym, and Scott's daughter Cassie Lang, find themselves exploring the Quantum Realm, interacting with strange new creatures and embarking on an adventure that will push them beyond the limits of what they thought possible.
+                        popularity:
+                          type: number
+                          example: 9272.643
+                          default: 0
+                        poster_path:
+                          type: string
+                          example: /ngl2FKBlU4fhbdsrtdom9LVLBXw.jpg
+                        release_date:
+                          type: string
+                          example: '2023-02-15'
+                        title:
+                          type: string
+                          example: 'Ant-Man and the Wasp: Quantumania'
+                        video:
+                          type: boolean
+                          example: false
+                          default: true
+                        vote_average:
+                          type: number
+                          example: 6.5
+                          default: 0
+                        vote_count:
+                          type: integer
+                          example: 1856
+                          default: 0
+                  total_pages:
+                    type: integer
+                    example: 38020
+                    default: 0
+                  total_results:
+                    type: integer
+                    example: 760385
+                    default: 0
+      deprecated: false
+  /3/movie/{movie_id}:
+    get:
+      summary: Details
+      description: Get the top level details of a movie by ID.
+      operationId: movie-details
+      parameters:
+        - name: movie_id
+          in: path
+          schema:
+            type: integer
+            format: int32
+          required: true
+        - name: append_to_response
+          in: query
+          description: comma separated list of endpoints within this namespace, 20 items max
+          schema:
+            type: string
+        - name: language
+          in: query
+          schema:
+            type: string
+            default: en-US
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{"adult":false,"backdrop_path":"/hZkgoQYus5vegHoetLkCJzb17zJ.jpg","belongs_to_collection":null,"budget":63000000,"genres":[{"id":18,"name":"Drama"},{"id":53,"name":"Thriller"},{"id":35,"name":"Comedy"}],"homepage":"http://www.foxmovies.com/movies/fight-club","id":550,"imdb_id":"tt0137523","original_language":"en","original_title":"Fight Club","overview":"A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground \"fight clubs\" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.","popularity":61.416,"poster_path":"/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg","production_companies":[{"id":508,"logo_path":"/7cxRWzi4LsVm4Utfpr1hfARNurT.png","name":"Regency Enterprises","origin_country":"US"},{"id":711,"logo_path":"/tEiIH5QesdheJmDAqQwvtN60727.png","name":"Fox 2000 Pictures","origin_country":"US"},{"id":20555,"logo_path":"/hD8yEGUBlHOcfHYbujp71vD8gZp.png","name":"Taurus Film","origin_country":"DE"},{"id":54051,"logo_path":null,"name":"Atman Entertainment","origin_country":""},{"id":54052,"logo_path":null,"name":"Knickerbocker Films","origin_country":"US"},{"id":4700,"logo_path":"/A32wmjrs9Psf4zw0uaixF0GXfxq.png","name":"The Linson Company","origin_country":"US"},{"id":25,"logo_path":"/qZCc1lty5FzX30aOCVRBLzaVmcp.png","name":"20th Century Fox","origin_country":"US"}],"production_countries":[{"iso_3166_1":"US","name":"United States of America"}],"release_date":"1999-10-15","revenue":100853753,"runtime":139,"spoken_languages":[{"english_name":"English","iso_639_1":"en","name":"English"}],"status":"Released","tagline":"Mischief. Mayhem. Soap.","title":"Fight Club","video":false,"vote_average":8.433,"vote_count":26280}'
+              schema:
+                type: object
+                properties:
+                  adult:
+                    type: boolean
+                    example: false
+                    default: true
+                  backdrop_path:
+                    type: string
+                    example: /hZkgoQYus5vegHoetLkCJzb17zJ.jpg
+                  belongs_to_collection: {}
+                  budget:
+                    type: integer
+                    example: 63000000
+                    default: 0
+                  genres:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 18
+                          default: 0
+                        name:
+                          type: string
+                          example: Drama
+                  homepage:
+                    type: string
+                    example: http://www.foxmovies.com/movies/fight-club
+                  id:
+                    type: integer
+                    example: 550
+                    default: 0
+                  imdb_id:
+                    type: string
+                    example: tt0137523
+                  original_language:
+                    type: string
+                    example: en
+                  original_title:
+                    type: string
+                    example: Fight Club
+                  overview:
+                    type: string
+                    example: A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground "fight clubs" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.
+                  popularity:
+                    type: number
+                    example: 61.416
+                    default: 0
+                  poster_path:
+                    type: string
+                    example: /pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg
+                  production_companies:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 508
+                          default: 0
+                        logo_path:
+                          type: string
+                          example: /7cxRWzi4LsVm4Utfpr1hfARNurT.png
+                        name:
+                          type: string
+                          example: Regency Enterprises
+                        origin_country:
+                          type: string
+                          example: US
+                  production_countries:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        iso_3166_1:
+                          type: string
+                          example: US
+                        name:
+                          type: string
+                          example: United States of America
+                  release_date:
+                    type: string
+                    example: '1999-10-15'
+                  revenue:
+                    type: integer
+                    example: 100853753
+                    default: 0
+                  runtime:
+                    type: integer
+                    example: 139
+                    default: 0
+                  spoken_languages:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        english_name:
+                          type: string
+                          example: English
+                        iso_639_1:
+                          type: string
+                          example: en
+                        name:
+                          type: string
+                          example: English
+                  status:
+                    type: string
+                    example: Released
+                  tagline:
+                    type: string
+                    example: Mischief. Mayhem. Soap.
+                  title:
+                    type: string
+                    example: Fight Club
+                  video:
+                    type: boolean
+                    example: false
+                    default: true
+                  vote_average:
+                    type: number
+                    example: 8.433
+                    default: 0
+                  vote_count:
+                    type: integer
+                    example: 26280
+                    default: 0
+      deprecated: false
+  /3/movie/{movie_id}/images:
+    get:
+      summary: Images
+      description: Get the images that belong to a movie.
+      operationId: movie-images
+      parameters:
+        - name: movie_id
+          in: path
+          schema:
+            type: integer
+            format: int32
+          required: true
+        - name: include_image_language
+          in: query
+          description: 'specify a comma separated list of ISO-639-1 values to query, for example: `en,null`'
+          schema:
+            type: string
+        - name: language
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{"backdrops":[{"aspect_ratio":1.778,"height":800,"iso_639_1":null,"file_path":"/hZkgoQYus5vegHoetLkCJzb17zJ.jpg","vote_average":5.622,"vote_count":20,"width":1422},{"aspect_ratio":1.778,"height":720,"iso_639_1":"en","file_path":"/fygeMr16EcxJiYhdiO1LEr7iHtI.jpg","vote_average":5.318,"vote_count":3,"width":1280},{"aspect_ratio":1.778,"height":1080,"iso_639_1":"en","file_path":"/b9HyPoxwxjxkWEUL5ErZdhApQe2.jpg","vote_average":5.312,"vote_count":1,"width":1920},{"aspect_ratio":1.778,"height":1440,"iso_639_1":null,"file_path":"/c6OLXfKAk5BKeR6broC8pYiCquX.jpg","vote_average":5.292,"vote_count":18,"width":2560},{"aspect_ratio":1.778,"height":1080,"iso_639_1":null,"file_path":"/3nv2TEz2u178xPXzdKlZdUh5uOI.jpg","vote_average":5.276,"vote_count":12,"width":1920},{"aspect_ratio":1.778,"height":1080,"iso_639_1":null,"file_path":"/yguBaPk5V0nZCcSBthre4YFMAgk.jpg","vote_average":5.212,"vote_count":11,"width":1920},{"aspect_ratio":1.778,"height":1080,"iso_639_1":null,"file_path":"/xRyINp9KfMLVjRiO5nCsoRDdvvF.jpg","vote_average":5.206,"vote_count":9,"width":1920},{"aspect_ratio":1.778,"height":1080,"iso_639_1":null,"file_path":"/bsfJoKVAqFzlhvbt8AffjvYAtN4.jpg","vote_average":5.19,"vote_count":5,"width":1920},{"aspect_ratio":1.778,"height":1080,"iso_639_1":null,"file_path":"/kpRWGjh3SsYjuF26HyRhCJJkMRk.jpg","vote_average":5.19,"vote_count":5,"width":1920},{"aspect_ratio":1.778,"height":1080,"iso_639_1":"en","file_path":"/5pxdgKVEDWDQBtvqIB2eB2oheml.jpg","vote_average":5.18,"vote_count":3,"width":1920},{"aspect_ratio":1.778,"height":720,"iso_639_1":"en","file_path":"/yPeG1RQm5Am0eslu0IwUEJ4VXND.jpg","vote_average":5.172,"vote_count":1,"width":1280},{"aspect_ratio":1.778,"height":1080,"iso_639_1":"en","file_path":"/jAvY6IN6MIxmPM2oAtNqYK7P2gi.jpg","vote_average":5.172,"vote_count":1,"width":1920},{"aspect_ratio":1.777,"height":793,"iso_639_1":null,"file_path":"/52AfXWuXCHn3UjD17rBruA9f5qb.jpg","vote_average":5.146,"vote_count":10,"width":1409},{"aspect_ratio":1.778,"height":1080,"iso_639_1":null,"file_path":"/ruJPyRrHYPS071XzVGPX3peYi0x.jpg","vote_average":5.146,"vote_count":10,"width":1920},{"aspect_ratio":1.778,"height":1439,"iso_639_1":null,"file_path":"/rr7E0NoGKxvbkb89eR1GwfoYjpA.jpg","vote_average":5.144,"vote_count":23,"width":2559},{"aspect_ratio":1.778,"height":1964,"iso_639_1":null,"file_path":"/8iVyhmjzUbvAGppkdCZPiyEHSoF.jpg","vote_average":5.138,"vote_count":8,"width":3492},{"aspect_ratio":1.778,"height":900,"iso_639_1":null,"file_path":"/3qFgjOYLnEUfBxt5yWRKmRRrh9w.jpg","vote_average":5.138,"vote_count":8,"width":1600},{"aspect_ratio":1.778,"height":1080,"iso_639_1":null,"file_path":"/eZRY604RqrnT2Yxz0GwGo7tRChX.jpg","vote_average":5.128,"vote_count":6,"width":1920},{"aspect_ratio":1.778,"height":1080,"iso_639_1":null,"file_path":"/5OjjPVk14NZRp8N5UUS6k55hbfp.jpg","vote_average":5.118,"vote_count":4,"width":1920},{"aspect_ratio":1.778,"height":2160,"iso_639_1":null,"file_path":"/vxqKGixpgNndTz58YbFpTlw8lpB.jpg","vote_average":5.118,"vote_count":4,"width":3840},{"aspect_ratio":1.778,"height":1080,"iso_639_1":null,"file_path":"/nHOaLyQeV9isvyxF7mMH2TUG8IK.jpg","vote_average":5.118,"vote_count":4,"width":1920},{"aspect_ratio":1.778,"height":1080,"iso_639_1":null,"file_path":"/rv972EWgze3DZitMMY8AEDzD9HK.jpg","vote_average":5.118,"vote_count":4,"width":1920},{"aspect_ratio":1.778,"height":2160,"iso_639_1":null,"file_path":"/vfEuh0ELDkHWu3UfJiEkWN8Z4tc.jpg","vote_average":5.118,"vote_count":4,"width":3840},{"aspect_ratio":1.776,"height":1172,"iso_639_1":null,"file_path":"/2SW1FZHZw4ncy61pb8jcgrzVQVk.jpg","vote_average":5.106,"vote_count":2,"width":2082},{"aspect_ratio":1.778,"height":1080,"iso_639_1":null,"file_path":"/1lBuRNwlqUs4BeF7UR4RuAgp2KW.jpg","vote_average":5.106,"vote_count":2,"width":1920},{"aspect_ratio":1.778,"height":1080,"iso_639_1":null,"file_path":"/7XEtHQoy1hwa8XWaOkSv3rlteea.jpg","vote_average":5.09,"vote_count":11,"width":1920},{"aspect_ratio":1.778,"height":1080,"iso_639_1":null,"file_path":"/yrN6gon5NG6t7Lgh05byChFSZem.jpg","vote_average":5.08,"vote_count":9,"width":1920},{"aspect_ratio":1.778,"height":720,"iso_639_1":null,"file_path":"/qRNDy8RLjd7WAD8GGTBmzGAFFGF.jpg","vote_average":5.044,"vote_count":3,"width":1280},{"aspect_ratio":1.778,"height":1080,"iso_639_1":null,"file_path":"/aKSnDPpYxaalpDkla9LyIzn2bjq.jpg","vote_average":0.0,"vote_count":0,"width":1920},{"aspect_ratio":1.778,"height":1080,"iso_639_1":null,"file_path":"/sty6obiES7ZMkEaCWt5dthRbvHT.jpg","vote_average":0.0,"vote_count":0,"width":1920},{"aspect_ratio":1.778,"height":1080,"iso_639_1":null,"file_path":"/9sxsHE74N1SXYpXzUEiO3PoDvan.jpg","vote_average":0.0,"vote_count":0,"width":1920},{"aspect_ratio":1.778,"height":1080,"iso_639_1":null,"file_path":"/o9PU3vpXhpl13qogQ8gLL30wH2Y.jpg","vote_average":0.0,"vote_count":0,"width":1920},{"aspect_ratio":1.778,"height":1080,"iso_639_1":null,"file_path":"/wRxE40hwcSWSkHUnj8zGMf5tnab.jpg","vote_average":0.0,"vote_count":0,"width":1920},{"aspect_ratio":1.778,"height":1080,"iso_639_1":null,"file_path":"/maCmEa61kG3cIvoCwdFtEbrJThT.jpg","vote_average":0.0,"vote_count":0,"width":1920},{"aspect_ratio":1.778,"height":1080,"iso_639_1":null,"file_path":"/mvvVcyJwj7n8iwgPsTFUWzc9N8L.jpg","vote_average":0.0,"vote_count":0,"width":1920},{"aspect_ratio":1.778,"height":1080,"iso_639_1":null,"file_path":"/tOciO9nqIZn1MbnMxu5Rweayd83.jpg","vote_average":0.0,"vote_count":0,"width":1920},{"aspect_ratio":1.778,"height":1080,"iso_639_1":null,"file_path":"/8KEWr4K6zyF77RDIqZAeMpi2MRV.jpg","vote_average":0.0,"vote_count":0,"width":1920},{"aspect_ratio":1.778,"height":1080,"iso_639_1":null,"file_path":"/fSJpyCCOPblKc2GHgTi682d7mqF.jpg","vote_average":0.0,"vote_count":0,"width":1920},{"aspect_ratio":1.778,"height":1080,"iso_639_1":null,"file_path":"/xJC7qhzgPJXEEi4EdAxYUF1WEGf.jpg","vote_average":0.0,"vote_count":0,"width":1920},{"aspect_ratio":1.778,"height":1152,"iso_639_1":"pt","file_path":"/rCMuTyJGT2GJzXcvWeYAVHQQRFS.jpg","vote_average":0.0,"vote_count":0,"width":2048},{"aspect_ratio":1.778,"height":1080,"iso_639_1":"sv","file_path":"/zSB4QpFOqQXGeugeKALCK7hoX68.jpg","vote_average":0.0,"vote_count":0,"width":1920}],"id":550,"logos":[{"aspect_ratio":5.203,"height":79,"iso_639_1":"he","file_path":"/c1KLulrIhUqY5fT42nmC5aERGCp.png","vote_average":5.312,"vote_count":1,"width":411},{"aspect_ratio":8.502,"height":235,"iso_639_1":"pt","file_path":"/qqAcl1YIT5Sa2nx8tKQcervQCco.png","vote_average":5.312,"vote_count":1,"width":1998},{"aspect_ratio":4.638,"height":389,"iso_639_1":"en","file_path":"/7Uqhv24pGJs4Ns31NoOPWFJGWNG.png","vote_average":5.172,"vote_count":1,"width":1804},{"aspect_ratio":1.329,"height":1275,"iso_639_1":"en","file_path":"/v7JwpiYf2knmf2R2mLLvJmNxy9x.png","vote_average":0.0,"vote_count":0,"width":1694},{"aspect_ratio":0.848,"height":1295,"iso_639_1":"en","file_path":"/4XkF0Rf7gvSfea8fYLFbU5tmuJw.png","vote_average":0.0,"vote_count":0,"width":1098},{"aspect_ratio":1.5,"height":290,"iso_639_1":"en","file_path":"/y9dOBfqWvCdxQcwBSPT2nfXGJpi.png","vote_average":0.0,"vote_count":0,"width":435},{"aspect_ratio":0.861,"height":294,"iso_639_1":"en","file_path":"/7s3aiqRnwRUVpwtxFLrWyMITHSC.png","vote_average":0.0,"vote_count":0,"width":253},{"aspect_ratio":1.324,"height":293,"iso_639_1":"es","file_path":"/xJe4B5TVXvjldcdlwlSgJ7PtjDu.png","vote_average":0.0,"vote_count":0,"width":388},{"aspect_ratio":2.134,"height":298,"iso_639_1":"es","file_path":"/z6yka0HngU3FPjcWBc4CSxokUg0.png","vote_average":0.0,"vote_count":0,"width":636},{"aspect_ratio":1.29,"height":310,"iso_639_1":"en","file_path":"/ahnGkBeGqvUtpyfOqoWt9Cto9WR.png","vote_average":0.0,"vote_count":0,"width":400},{"aspect_ratio":1.34,"height":300,"iso_639_1":"en","file_path":"/fI7UHnoU685iz4eG7lQu7aKfxPW.png","vote_average":0.0,"vote_count":0,"width":402},{"aspect_ratio":1.766,"height":295,"iso_639_1":"en","file_path":"/hfbxs6yi35ciD6xcuGz0eeHfpm9.png","vote_average":0.0,"vote_count":0,"width":521},{"aspect_ratio":0.868,"height":296,"iso_639_1":"en","file_path":"/ofkQTAMEY6N8MSiezFMxdQtej3o.png","vote_average":0.0,"vote_count":0,"width":257},{"aspect_ratio":2.209,"height":1298,"iso_639_1":"pt","file_path":"/5TVHz85ylbxt1jTbZ2DfPsKioX0.png","vote_average":0.0,"vote_count":0,"width":2867},{"aspect_ratio":2.209,"height":1298,"iso_639_1":"pt","file_path":"/k8KZ4lH1GRNNJo6n8FZjCDTBIaL.png","vote_average":0.0,"vote_count":0,"width":2867},{"aspect_ratio":1.382,"height":296,"iso_639_1":"en","file_path":"/a3YV8Fnue6LTuSRuvnLxvEPeZxz.png","vote_average":0.0,"vote_count":0,"width":409},{"aspect_ratio":3.365,"height":233,"iso_639_1":"en","file_path":"/yDcFmXCT4XUkTujDY3p1auO8Po5.png","vote_average":0.0,"vote_count":0,"width":784},{"aspect_ratio":1.371,"height":294,"iso_639_1":"en","file_path":"/mjrGAw5IyGQIYsJaqGIyxgvnfZj.png","vote_average":0.0,"vote_count":0,"width":403},{"aspect_ratio":2.085,"height":295,"iso_639_1":"ru","file_path":"/y9RSpK5PpMYEkfdCRofBp09KpW9.png","vote_average":0.0,"vote_count":0,"width":615},{"aspect_ratio":1.749,"height":299,"iso_639_1":"es","file_path":"/tYztBlJpIClYUznEI1G0mQWxoCO.png","vote_average":0.0,"vote_count":0,"width":523},{"aspect_ratio":2.103,"height":428,"iso_639_1":"ru","file_path":"/aj0TDYImCd1bd0woML4I5t3C2Qh.png","vote_average":0.0,"vote_count":0,"width":900},{"aspect_ratio":1.041,"height":244,"iso_639_1":"en","file_path":"/40uRxnaxKNIxZPVKVMizbe76a8h.png","vote_average":0.0,"vote_count":0,"width":254},{"aspect_ratio":1.474,"height":661,"iso_639_1":"he","file_path":"/nDZdalfIZ3v7vx56zHo3HtApGqG.png","vote_average":0.0,"vote_count":0,"width":974},{"aspect_ratio":1.332,"height":244,"iso_639_1":"pt","file_path":"/l8pqQ4bwdU8IkdAvEM2PVYjqYCT.png","vote_average":0.0,"vote_count":0,"width":325},{"aspect_ratio":1.472,"height":536,"iso_639_1":"ro","file_path":"/spz7zdPaSFQPicmSdCvpIzTwsHo.png","vote_average":0.0,"vote_count":0,"width":789},{"aspect_ratio":2.536,"height":304,"iso_639_1":"pl","file_path":"/dYd6n3eOlijsiX25OV3sfHqCF10.png","vote_average":0.0,"vote_count":0,"width":771},{"aspect_ratio":1.297,"height":538,"iso_639_1":"th","file_path":"/pHsyBpUS4uz288bpZtnCmPHYxmN.png","vote_average":0.0,"vote_count":0,"width":698},{"aspect_ratio":7.313,"height":297,"iso_639_1":"hu","file_path":"/oMV5afEbMOxh1nowR1tLxFpIEhH.png","vote_average":0.0,"vote_count":0,"width":2172}],"posters":[{"aspect_ratio":0.667,"height":900,"iso_639_1":"pt","file_path":"/r3pPehX4ik8NLYPpbDRAh0YRtMb.jpg","vote_average":5.258,"vote_count":6,"width":600},{"aspect_ratio":0.667,"height":1350,"iso_639_1":"ru","file_path":"/66RvLrRJTm4J8l3uHXWF09AICol.jpg","vote_average":5.522,"vote_count":4,"width":900},{"aspect_ratio":0.667,"height":3000,"iso_639_1":"en","file_path":"/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg","vote_average":5.504,"vote_count":46,"width":2000},{"aspect_ratio":0.667,"height":3000,"iso_639_1":"en","file_path":"/a26cQPRhJPX6GbWfQbvZdrrp9j9.jpg","vote_average":5.46,"vote_count":25,"width":2000},{"aspect_ratio":0.706,"height":2834,"iso_639_1":"en","file_path":"/14Cs3sr6nus6QTHThldis8p4Nlm.jpg","vote_average":5.384,"vote_count":2,"width":2000},{"aspect_ratio":0.667,"height":2100,"iso_639_1":"tr","file_path":"/yjMuqAyJUoQZGWsZ0vZuYj5inAR.jpg","vote_average":5.384,"vote_count":2,"width":1400},{"aspect_ratio":0.667,"height":3000,"iso_639_1":"he","file_path":"/7Tmjr0jgVj8hHcd3UJD6HIilMKM.jpg","vote_average":5.384,"vote_count":2,"width":2000},{"aspect_ratio":0.667,"height":3000,"iso_639_1":"pt","file_path":"/ohXr0v9U0TfFu9IXbSDm5zoGV3R.jpg","vote_average":5.33,"vote_count":9,"width":2000},{"aspect_ratio":0.667,"height":2100,"iso_639_1":"es","file_path":"/1yWmCAIGSVNuTOGyz9F48W9g1Ux.jpg","vote_average":5.326,"vote_count":7,"width":1400},{"aspect_ratio":0.667,"height":1500,"iso_639_1":"ko","file_path":"/eKZ07Ted7VHxQjbuZrRBFOamcKJ.jpg","vote_average":5.318,"vote_count":3,"width":1000},{"aspect_ratio":0.666,"height":1418,"iso_639_1":"uk","file_path":"/266SbE7HFsEbvprMagQyf19PDsn.jpg","vote_average":5.318,"vote_count":3,"width":945},{"aspect_ratio":0.667,"height":3000,"iso_639_1":"es","file_path":"/sgTAWJFaB2kBvdQxRGabYFiQqEK.jpg","vote_average":5.318,"vote_count":3,"width":2000},{"aspect_ratio":0.667,"height":3000,"iso_639_1":"es","file_path":"/6HRbhpNd32STZ3QqtoRCuoow1EI.jpg","vote_average":5.318,"vote_count":3,"width":2000},{"aspect_ratio":0.667,"height":1500,"iso_639_1":"he","file_path":"/d23jzgwz3G7CPBEj3gNusWmkd64.jpg","vote_average":5.318,"vote_count":3,"width":1000},{"aspect_ratio":0.667,"height":1200,"iso_639_1":"de","file_path":"/rUPKPWBpr2ZbDXXZpT0qgYqTlG9.jpg","vote_average":5.318,"vote_count":3,"width":800},{"aspect_ratio":0.667,"height":2250,"iso_639_1":"it","file_path":"/rtNLQ8HbPElzEfrHjrzSr07prKT.jpg","vote_average":5.318,"vote_count":3,"width":1500},{"aspect_ratio":0.667,"height":750,"iso_639_1":"pl","file_path":"/efBb4gjjKneUoBVgfFOUu2OwihS.jpg","vote_average":5.312,"vote_count":1,"width":500},{"aspect_ratio":0.667,"height":2250,"iso_639_1":"it","file_path":"/xEAX4Hq21wZcRhspT7VyGtTspsp.jpg","vote_average":5.312,"vote_count":1,"width":1500},{"aspect_ratio":0.667,"height":1620,"iso_639_1":"ru","file_path":"/8GJpI9jGsnJQ6wSnYTbddrbjsWB.jpg","vote_average":5.312,"vote_count":1,"width":1080},{"aspect_ratio":0.667,"height":3000,"iso_639_1":"pt","file_path":"/nu7FEmC4zBaZ7c3QYmVpDlZa2H0.jpg","vote_average":5.312,"vote_count":1,"width":2000},{"aspect_ratio":0.667,"height":1500,"iso_639_1":"en","file_path":"/6DFl63gJmQPxWBPRucHegEJ2Qns.jpg","vote_average":5.312,"vote_count":1,"width":1000},{"aspect_ratio":0.667,"height":1200,"iso_639_1":"en","file_path":"/9VOESirK1bX66Xenj9QHcl5GJU9.jpg","vote_average":5.282,"vote_count":14,"width":800},{"aspect_ratio":0.667,"height":3000,"iso_639_1":"en","file_path":"/jSziioSwPVrOy9Yow3XhWIBDjq1.jpg","vote_average":5.27,"vote_count":10,"width":2000},{"aspect_ratio":0.667,"height":3000,"iso_639_1":"pt","file_path":"/mZDc9F3uNSgUNaudb1VtumPs3dL.jpg","vote_average":5.252,"vote_count":4,"width":2000},{"aspect_ratio":0.667,"height":1500,"iso_639_1":"fr","file_path":"/6NdNO1dq9w54ujk2G4sK4ogsf0H.jpg","vote_average":5.252,"vote_count":4,"width":1000},{"aspect_ratio":0.666,"height":1000,"iso_639_1":"en","file_path":"/b1ONg8Is4l760oryJa7Aw7LdPtM.jpg","vote_average":5.252,"vote_count":4,"width":666},{"aspect_ratio":0.701,"height":1426,"iso_639_1":"en","file_path":"/8kNruSfhk5IoE4eZOc4UpvDn6tq.jpg","vote_average":5.25,"vote_count":23,"width":1000},{"aspect_ratio":0.666,"height":1522,"iso_639_1":"uk","file_path":"/x43vYIPjcVvts7iHw6GH8sU1tiZ.jpg","vote_average":5.246,"vote_count":2,"width":1014},{"aspect_ratio":0.721,"height":1020,"iso_639_1":"he","file_path":"/v7Y0dqAMYBsdkiPVM5btdNkhzmt.jpg","vote_average":5.246,"vote_count":2,"width":735},{"aspect_ratio":0.721,"height":1020,"iso_639_1":"he","file_path":"/nXZ5rghMvQayEGytShNxiLaEWLk.jpg","vote_average":5.246,"vote_count":2,"width":735},{"aspect_ratio":0.667,"height":2100,"iso_639_1":"en","file_path":"/obVTG7QMbQ7gV3oZAJuFjKBhsGk.jpg","vote_average":5.246,"vote_count":2,"width":1400},{"aspect_ratio":0.667,"height":1500,"iso_639_1":"en","file_path":"/uVe8UnJTgLso26NtA8GB4M0RDLh.jpg","vote_average":5.246,"vote_count":2,"width":1000},{"aspect_ratio":0.667,"height":2400,"iso_639_1":"en","file_path":"/dMgcjU3uaL9BhizmZbrGJsPQ8h4.jpg","vote_average":5.246,"vote_count":2,"width":1600},{"aspect_ratio":0.667,"height":1500,"iso_639_1":"de","file_path":"/aRgu4CfNcCIHGOnbX81IPujQ3bO.jpg","vote_average":5.246,"vote_count":2,"width":1000},{"aspect_ratio":0.698,"height":2865,"iso_639_1":"ko","file_path":"/uEsdm0noLfmkcVrZlyyuXp9e5I7.jpg","vote_average":5.246,"vote_count":2,"width":2000},{"aspect_ratio":0.667,"height":3000,"iso_639_1":"es","file_path":"/6ZO199essPSa8taBHB4zLvOJLDD.jpg","vote_average":5.246,"vote_count":2,"width":2000},{"aspect_ratio":0.669,"height":2278,"iso_639_1":"en","file_path":"/bptfVGEQuv6vDTIMVCHjJ9Dz8PX.jpg","vote_average":5.232,"vote_count":17,"width":1524},{"aspect_ratio":0.754,"height":1500,"iso_639_1":"en","file_path":"/wR5HZWdVpcXx9sevV1bQi7rP4op.jpg","vote_average":5.212,"vote_count":11,"width":1131},{"aspect_ratio":0.667,"height":3000,"iso_639_1":"es","file_path":"/63j6sG0Q7GpLLNbGKgmFmAp7xT9.jpg","vote_average":5.198,"vote_count":7,"width":2000},{"aspect_ratio":0.667,"height":1500,"iso_639_1":"es","file_path":"/cm8dnS4MF3jtz0mvA9nEiDy0kxl.jpg","vote_average":5.19,"vote_count":5,"width":1000},{"aspect_ratio":0.667,"height":1500,"iso_639_1":"es","file_path":"/xfRCDSmdMQSISmLxI0r8hQ9GIQa.jpg","vote_average":5.19,"vote_count":5,"width":1000},{"aspect_ratio":0.667,"height":3000,"iso_639_1":"es","file_path":"/pOzC3JAt5kG6tJSNgp4N46T5QTI.jpg","vote_average":5.19,"vote_count":5,"width":2000},{"aspect_ratio":0.698,"height":1433,"iso_639_1":"ko","file_path":"/kabpExFv9JLp778w9ZtCtZnWH9N.jpg","vote_average":5.18,"vote_count":3,"width":1000},{"aspect_ratio":0.667,"height":3000,"iso_639_1":null,"file_path":"/a1hxQhCl2i9DmbjKXixkukVW7zy.jpg","vote_average":5.18,"vote_count":3,"width":2000},{"aspect_ratio":0.711,"height":1066,"iso_639_1":"pt","file_path":"/8pcOlY6jaupFKTIy2aeKCKZ2GMj.jpg","vote_average":5.18,"vote_count":3,"width":758},{"aspect_ratio":0.666,"height":1066,"iso_639_1":"pt","file_path":"/lZcILaI9vvoCUVxl9KnUKeL6sKc.jpg","vote_average":5.18,"vote_count":3,"width":710},{"aspect_ratio":0.707,"height":1403,"iso_639_1":"en","file_path":"/wlmGPHDbnOK4AwL37m6tegxO8A3.jpg","vote_average":5.18,"vote_count":3,"width":992},{"aspect_ratio":0.667,"height":2100,"iso_639_1":"en","file_path":"/hPkAixiAyXzQb8uTOiovuhpDBK2.jpg","vote_average":5.172,"vote_count":1,"width":1400},{"aspect_ratio":0.671,"height":1361,"iso_639_1":"ko","file_path":"/4quCAKpCylIy991IHkLCuXCzO1a.jpg","vote_average":5.172,"vote_count":1,"width":913},{"aspect_ratio":0.671,"height":1361,"iso_639_1":"ko","file_path":"/kZfIYkflKe52rbzUruBUIqX5KOV.jpg","vote_average":5.172,"vote_count":1,"width":913},{"aspect_ratio":0.667,"height":2400,"iso_639_1":"en","file_path":"/7Yl18M6LegCaMuwYDkEhohXsG1b.jpg","vote_average":5.172,"vote_count":1,"width":1600},{"aspect_ratio":0.701,"height":1426,"iso_639_1":"ta","file_path":"/bo2IVEKV7BtHLHOWF1zfuqoHnfp.jpg","vote_average":5.172,"vote_count":1,"width":1000},{"aspect_ratio":0.667,"height":2400,"iso_639_1":"en","file_path":"/tcmNYC8ub4E51gkErXoIgkbESZH.jpg","vote_average":5.172,"vote_count":1,"width":1600},{"aspect_ratio":0.701,"height":1426,"iso_639_1":"en","file_path":"/k1lICEYRpJeFRIRfjxYwmpO9LTu.jpg","vote_average":5.128,"vote_count":6,"width":1000},{"aspect_ratio":0.667,"height":2100,"iso_639_1":"fr","file_path":"/iqR0M1ln7Kobjp9liUj2Q7mtQZG.jpg","vote_average":5.118,"vote_count":4,"width":1400},{"aspect_ratio":0.698,"height":1433,"iso_639_1":"ko","file_path":"/5vgorfLOTe6w8Ti68s25kzXxjun.jpg","vote_average":5.106,"vote_count":2,"width":1000},{"aspect_ratio":0.667,"height":3000,"iso_639_1":"es","file_path":"/cp6PLg9gGItJBIQlnEfikqZMvah.jpg","vote_average":5.068,"vote_count":7,"width":2000},{"aspect_ratio":0.667,"height":1800,"iso_639_1":"en","file_path":"/fCTjGJxKWZGWQDCGFGYMGvh4VNP.jpg","vote_average":5.068,"vote_count":7,"width":1200},{"aspect_ratio":0.687,"height":1200,"iso_639_1":"es","file_path":"/974fFjwHSjMkZhH0HOZZcOyRM2h.jpg","vote_average":4.922,"vote_count":5,"width":824},{"aspect_ratio":0.706,"height":1000,"iso_639_1":"be","file_path":"/eKtuGJQJ06iafhYl22mYCWidjmM.jpg","vote_average":0.0,"vote_count":0,"width":706},{"aspect_ratio":0.667,"height":1800,"iso_639_1":null,"file_path":"/fFkMxrBYnEBcEHotxTQwx2nAncy.jpg","vote_average":0.0,"vote_count":0,"width":1200},{"aspect_ratio":0.667,"height":1800,"iso_639_1":"hu","file_path":"/74RcH5EIo9IrPIgsZw7mGd989tW.jpg","vote_average":0.0,"vote_count":0,"width":1200},{"aspect_ratio":0.71,"height":1353,"iso_639_1":"it","file_path":"/4Fb5srk9F3jo561ig451r7O3EgR.jpg","vote_average":0.0,"vote_count":0,"width":960},{"aspect_ratio":0.667,"height":3000,"iso_639_1":"cs","file_path":"/nYtec2BxtcupGTdOMcIscG6rkhQ.jpg","vote_average":0.0,"vote_count":0,"width":2000},{"aspect_ratio":0.667,"height":2100,"iso_639_1":"pt","file_path":"/rwUtDfMvMQsGrjpyS27ASLlJ6J5.jpg","vote_average":0.0,"vote_count":0,"width":1400},{"aspect_ratio":0.667,"height":1080,"iso_639_1":"en","file_path":"/A86dg5r6tdUVvQBeOGhvgTXGoQi.jpg","vote_average":0.0,"vote_count":0,"width":720},{"aspect_ratio":0.667,"height":2100,"iso_639_1":"en","file_path":"/m10ywT1Bnazwhccdymn6hap6Fmw.jpg","vote_average":0.0,"vote_count":0,"width":1400},{"aspect_ratio":0.667,"height":3000,"iso_639_1":"en","file_path":"/uwOQQvBHbOALl7l9LegJSGmVY9e.jpg","vote_average":0.0,"vote_count":0,"width":2000},{"aspect_ratio":0.706,"height":1464,"iso_639_1":"sk","file_path":"/rc8sRTYamBPNjEoL6WsBuTqp5mW.jpg","vote_average":0.0,"vote_count":0,"width":1034},{"aspect_ratio":0.667,"height":1800,"iso_639_1":"sk","file_path":"/ibplTVmWaWCQ8TqFbmcJXBmuTtf.jpg","vote_average":0.0,"vote_count":0,"width":1200},{"aspect_ratio":0.667,"height":3000,"iso_639_1":"sk","file_path":"/f3EpLs1CfyRIDW7LuFj3kvBGZ4N.jpg","vote_average":0.0,"vote_count":0,"width":2000},{"aspect_ratio":0.667,"height":2928,"iso_639_1":"en","file_path":"/zk4t5puCiXPvw2dwKBGUt4Hh977.jpg","vote_average":0.0,"vote_count":0,"width":1952},{"aspect_ratio":0.667,"height":2100,"iso_639_1":"tr","file_path":"/lNur5DYuFHkjz19Y2auJ1sLEP5q.jpg","vote_average":0.0,"vote_count":0,"width":1400},{"aspect_ratio":0.667,"height":3000,"iso_639_1":"hu","file_path":"/yBtDnvP3V4YY3K0u9IlyZdWyJA6.jpg","vote_average":0.0,"vote_count":0,"width":2000},{"aspect_ratio":0.667,"height":1500,"iso_639_1":"en","file_path":"/krAoSoir6XtvQYAqqRRHzC5Xhiv.jpg","vote_average":0.0,"vote_count":0,"width":1000},{"aspect_ratio":0.667,"height":3000,"iso_639_1":"es","file_path":"/cB72WHqEKqHgV4P2z08aRqRVOvi.jpg","vote_average":0.0,"vote_count":0,"width":2000},{"aspect_ratio":0.667,"height":900,"iso_639_1":"vi","file_path":"/wBxkCbNI8eDRRfUEl8w0G2rfLyu.jpg","vote_average":0.0,"vote_count":0,"width":600},{"aspect_ratio":0.75,"height":853,"iso_639_1":"en","file_path":"/uA01tzxAfLDRRM5ZS3ethCdrqsJ.jpg","vote_average":0.0,"vote_count":0,"width":640},{"aspect_ratio":0.666,"height":2845,"iso_639_1":"en","file_path":"/lhkwaKzS9Y7ZEotyPwyQ7Ye2Dx5.jpg","vote_average":0.0,"vote_count":0,"width":1895},{"aspect_ratio":0.75,"height":1333,"iso_639_1":"fr","file_path":"/dQqNAlqwwmxNyULZgQNvZENx2h7.jpg","vote_average":0.0,"vote_count":0,"width":1000},{"aspect_ratio":0.667,"height":1500,"iso_639_1":"en","file_path":"/fGkVDmJgrfvLtrDtYlCxwlkkSNY.jpg","vote_average":0.0,"vote_count":0,"width":1000}]}'
+              schema:
+                type: object
+                properties:
+                  backdrops:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        aspect_ratio:
+                          type: number
+                          example: 1.778
+                          default: 0
+                        height:
+                          type: integer
+                          example: 800
+                          default: 0
+                        iso_639_1: {}
+                        file_path:
+                          type: string
+                          example: /hZkgoQYus5vegHoetLkCJzb17zJ.jpg
+                        vote_average:
+                          type: number
+                          example: 5.622
+                          default: 0
+                        vote_count:
+                          type: integer
+                          example: 20
+                          default: 0
+                        width:
+                          type: integer
+                          example: 1422
+                          default: 0
+                  id:
+                    type: integer
+                    example: 550
+                    default: 0
+                  logos:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        aspect_ratio:
+                          type: number
+                          example: 5.203
+                          default: 0
+                        height:
+                          type: integer
+                          example: 79
+                          default: 0
+                        iso_639_1:
+                          type: string
+                          example: he
+                        file_path:
+                          type: string
+                          example: /c1KLulrIhUqY5fT42nmC5aERGCp.png
+                        vote_average:
+                          type: number
+                          example: 5.312
+                          default: 0
+                        vote_count:
+                          type: integer
+                          example: 1
+                          default: 0
+                        width:
+                          type: integer
+                          example: 411
+                          default: 0
+                  posters:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        aspect_ratio:
+                          type: number
+                          example: 0.667
+                          default: 0
+                        height:
+                          type: integer
+                          example: 900
+                          default: 0
+                        iso_639_1:
+                          type: string
+                          example: pt
+                        file_path:
+                          type: string
+                          example: /r3pPehX4ik8NLYPpbDRAh0YRtMb.jpg
+                        vote_average:
+                          type: number
+                          example: 5.258
+                          default: 0
+                        vote_count:
+                          type: integer
+                          example: 6
+                          default: 0
+                        width:
+                          type: integer
+                          example: 600
+                          default: 0
+      deprecated: false
+  /3/movie/{movie_id}/rating:
+    post:
+      summary: Add Rating
+      description: Rate a movie and save it to your rated list.
+      operationId: movie-add-rating
+      parameters:
+        - name: movie_id
+          in: path
+          schema:
+            type: integer
+            format: int32
+          required: true
+        - name: guest_session_id
+          in: query
+          schema:
+            type: string
+        - name: session_id
+          in: query
+          schema:
+            type: string
+        - name: Content-Type
+          in: header
+          required: true
+          schema:
+            type: string
+            default: application/json;charset=utf-8
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - RAW_BODY
+              properties:
+                RAW_BODY:
+                  type: string
+                  format: json
+            examples:
+              Request Example:
+                value:
+                  value: 8.5
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: |-
+                    {
+                      "status_code": 1,
+                      "status_message": "Success."
+                    }
+              schema:
+                type: object
+                properties:
+                  status_code:
+                    type: integer
+                    example: 1
+                    default: 0
+                  status_message:
+                    type: string
+                    example: Success.
+      deprecated: false
+    delete:
+      summary: Delete Rating
+      description: Delete a user rating.
+      operationId: movie-delete-rating
+      parameters:
+        - name: movie_id
+          in: path
+          schema:
+            type: integer
+            format: int32
+          required: true
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+            default: application/json;charset=utf-8
+        - name: guest_session_id
+          in: query
+          schema:
+            type: string
+        - name: session_id
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: |-
+                    {
+                      "status_code": 13,
+                      "status_message": "The item/record was deleted successfully."
+                    }
+              schema:
+                type: object
+                properties:
+                  status_code:
+                    type: integer
+                    example: 13
+                    default: 0
+                  status_message:
+                    type: string
+                    example: The item/record was deleted successfully.
+      deprecated: false

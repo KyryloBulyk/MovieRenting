@@ -1,0 +1,98 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: docker.io/library/postgres:14
+    container_name: postgres
+    volumes:
+      - ./data:/var/lib/postgresql/data
+      - ./src/main/resources/data.sql:/docker-entrypoint-initdb.d/data.sql
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=assignment
+      - POSTGRES_PASSWORD=p4ssw0rd
+      - POSTGRES_DB=assignment
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks: [ "assignment" ]
+
+  zookeeper:
+    image: quay.io/strimzi/kafka:0.36.1-kafka-3.4.1
+    container_name: zookeeper
+    command: [
+      "sh", "-c",
+      "bin/zookeeper-server-start.sh config/zookeeper.properties"
+    ]
+    ports:
+      - "2181:2181"
+    environment:
+      LOG_DIR: /tmp/logs
+    networks: [ "assignment" ]
+
+  kafka:
+    image: quay.io/strimzi/kafka:0.36.1-kafka-3.4.1
+    container_name: kafka
+    command: >
+      sh -c "bin/kafka-server-start.sh config/server.properties --override listeners=PLAINTEXT://0.0.0.0:9092 --override advertised.listeners=PLAINTEXT://kafka:9092 --override zookeeper.connect=zookeeper:2181"
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      LOG_DIR: "/tmp/logs"
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
+    networks: [ "assignment" ]
+
+  rent-a-movie:
+    image: kyrylobulyk/rent-a-movie:1.0.0
+    container_name: rent-a-movie
+    depends_on:
+      - postgres
+      - kafka
+    environment:
+      - QUARKUS_PROFILE=docker
+      - QUARKUS_DATASOURCE_JDBC_URL=jdbc:postgresql://postgres:5432/assignment
+      - QUARKUS_DATASOURCE_USERNAME=assignment
+      - QUARKUS_DATASOURCE_PASSWORD=p4ssw0rd
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+    ports:
+      - "8080:8080"
+    networks: [ "assignment" ]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/q/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  tmdb-connector:
+    image: kyrylobulyk/tmdb-connector:1.0.0
+    container_name: tmdb-connector
+    depends_on:
+      - kafka
+      - rent-a-movie
+    environment:
+      - QUARKUS_PROFILE=docker
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+    ports:
+      - "8090:8090"
+    networks: [ "assignment" ]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8090/q/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  my-react-app:
+    image: kyrylobulyk/my-react-app:latest
+    container_name: my-react-app
+    ports:
+      - "5173:80"
+    networks: [ "assignment" ]
+
+networks:
+  assignment:
+    name: assignment

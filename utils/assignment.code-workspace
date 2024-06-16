@@ -1,0 +1,16 @@
+{
+  "folders": [
+    {
+      "path": "../rent-a-movie"
+    },
+    {
+      "path": "../tmdb-connector"
+    },
+    {
+      "path": "../utils"
+    }
+  ],
+  "settings": {
+    "java.configuration.updateBuildConfiguration": "automatic"
+  }
+}
